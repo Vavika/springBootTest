@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.ribbon.hystrix.FallbackHandler;
 import com.netflix.ribbon.proxy.annotation.Hystrix;
 import com.sun.jersey.spi.StringReader;
@@ -14,7 +15,7 @@ public class TestService{
 
     @HystrixCommand(fallbackMethod = "testError")
    public  String test(String name){
-      return restTemplate.getForObject("http://client1/test/?name=flq",String.class);
+      return restTemplate.getForObject("http://client1/test/?name="+name,String.class);
    }
 
    public  String testError(String name){
